@@ -1,0 +1,25 @@
+# NPPES files are public but huge; tests use small fixtures instead
+data/raw/*
+!data/raw/.gitkeep
+
+# Secrets: only .env.example (fake values) is committed
+.env
+
+# Claude Code local settings contain absolute paths, which include your username
+.claude/settings.local.json
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+build/
+dist/
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
