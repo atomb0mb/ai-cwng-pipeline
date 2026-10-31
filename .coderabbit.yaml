@@ -1,0 +1,49 @@
+# CodeRabbit configuration. Reference: https://docs.coderabbit.ai/reference/configuration
+# CodeRabbit reads CLAUDE.md automatically as coding guidelines, so the style rules
+# live there once and both Claude Code and CodeRabbit follow them. Don't list
+# CLAUDE.md under path_instructions: that makes CodeRabbit review it as changed code.
+language: en-US
+tone_instructions: "You review work by a learner practising AI-assisted engineering. Be direct and specific. Explain in plain English why each issue matters, and suggest a fix."
+
+reviews:
+  # assertive = more findings. Learners benefit from seeing them; switch to chill if it gets noisy.
+  profile: assertive
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: true
+  # Course PRs are small, so diagrams add noise rather than insight.
+  sequence_diagrams: false
+  auto_review:
+    enabled: true
+    drafts: false
+  path_filters:
+    - "!data/**"
+  path_instructions:
+    - path: "**/*.py"
+      instructions: |
+        Check every validation rule against the stated rule tables, including the rows where nothing should happen.
+        Flag library calls that accept more than the rule allows (for example str.isdigit, int(), strptime, re.match without fullmatch).
+        Flag SQL built with string formatting instead of query parameters.
+        Flag transaction boundaries that could leave partial writes, and any output that reports counts after a rollback.
+        Flag absolute filesystem paths, credentials, and dependencies not declared in pyproject.toml.
+    - path: "tests/**"
+      instructions: |
+        For each test, ask whether it would still pass if the behaviour it names were broken; flag tests that would.
+        Tests must assert behaviour (outputs, database state), not implementation details.
+        Database tests must clean up and must not be able to run against a non-test database.
+    - path: "sql/**"
+      instructions: |
+        Schema scripts should be idempotent (IF NOT EXISTS) because they run both at container init and from tests.
+    - path: "docs/**"
+      instructions: |
+        This is course material. In a learner's copy of the template (any repository other than ai-pipeline-template), flag any change here and suggest recording notes in LEARNING_LOG.md instead.
+    - path: "weeks/**"
+      instructions: |
+        This is course material. In a learner's copy of the template (any repository other than ai-pipeline-template), flag any change here and suggest recording notes in LEARNING_LOG.md instead.
+  tools:
+    ruff:
+      enabled: true
+
+chat:
+  auto_reply: true
