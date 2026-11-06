@@ -16,7 +16,7 @@ The details are in [ai-workflow.md](ai-workflow.md).
 ## Prerequisites
 | Tool | Version | Notes |
 |---|---|---|
-| Python | The version the week's brief names (3.12 for week 1) | Check with `py -0p` on Windows, or `python3 --version` on macOS/Linux. |
+| Python | The version the week's brief names (3.14 for week 1) | Check with `py -0p` on Windows, or `python3 --version` on macOS/Linux. |
 | Git | Any recent version | |
 | Container runtime | Docker Desktop, **or** Podman with a compose provider | With Podman, also install the standalone `docker-compose` binary, then use `podman machine start` and `podman compose up -d`. Check your employer's Docker Desktop licensing if you're on a work machine. |
 | GitHub account | | A personal account is simplest for installing CodeRabbit. |
@@ -30,8 +30,8 @@ The details are in [ai-workflow.md](ai-workflow.md).
 4. Create a virtual environment. This is the one command that differs by OS:
    | OS | Create | Activate |
    |---|---|---|
-   | Windows (PowerShell) | `py -3.12 -m venv .venv` | `.venv\Scripts\Activate.ps1` |
-   | macOS / Linux | `python3.12 -m venv .venv` | `source .venv/bin/activate` |
+   | Windows (PowerShell) | `py -3.14 -m venv .venv` | `.venv\Scripts\Activate.ps1` |
+   | macOS / Linux | `python3.14 -m venv .venv` | `source .venv/bin/activate` |
 
    *Why a venv?* It plays the same role as a per-project `packages` folder in .NET or `node_modules` in JavaScript. Each project gets its own isolated set of dependencies.
 5. Install CodeRabbit on your repo.
@@ -67,13 +67,23 @@ A public repo is visible to everyone, including future employers. There are seve
 Before pushing, search for anything personal: `git grep -n -i "<your username>"`.
 
 ## Pulling template updates
-Repos created from a template don't receive updates automatically, because they start with fresh history. To pull new weeks later:
+Repos created from a template don't receive updates automatically. *Use this template* copies the files into a brand-new history that has no link to the template's. Connect the two once, then pull updates whenever you like.
+
+**One-time setup:**
 ```bash
 git remote add template https://github.com/atomb0mb/ai-pipeline-template.git
 git fetch template
-git merge template/main --allow-unrelated-histories   # first time only needs this flag
+git log template/main --oneline --format="%h %cs %s"   # find the commit dated just before you created your repo
+git merge -s ours --allow-unrelated-histories <that-commit> -m "Link history to template"
 ```
-Because you never edit `docs/` or `weeks/`, these merges should be conflict-free, apart from `README.md` and `CLAUDE.md`, which you own after week 1.
+*Why `-s ours`?* It records "I already have everything up to this template commit" without changing any of your files. Without it, Git has no common starting point, treats every file as added on both sides, and reports a conflict for each file the template changed later.
+
+**Each time the template has new content:**
+```bash
+git fetch template
+git merge template/main
+```
+Because you never edit `docs/` or `weeks/`, these merges should be conflict-free. The exceptions are `README.md` and `CLAUDE.md`, which you own after week 1. For those, keep your version and copy in anything new from the template by hand.
 
 ## For facilitators
 Each week has a `FACILITATOR_NOTES.md` that lists the gaps and traps a strong plan should surface. Learners should open it only **after** writing their own plan and log. In a group, compare logs: the most useful discussion comes from what one person's AI missed and another person's caught.

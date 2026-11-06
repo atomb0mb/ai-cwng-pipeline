@@ -13,7 +13,7 @@ The brief tells the AI to check the real headers before writing code. A good AI 
 
 <details><summary>2. The required tools may not be installed</summary>
 
-The brief says Python 3.12 and `docker compose`. A good AI checks the installed Python versions (`py -0p` on Windows) and whether Docker exists. On machines without a Docker Desktop licence, Podman is common. It needs a compose provider (the standalone `docker-compose` binary or `podman-compose`), and its VM has to be started with `podman machine start`.
+The brief says Python 3.14 and `docker compose`. A good AI checks the installed Python versions (`py -0p` on Windows) and whether Docker exists. On machines without a Docker Desktop licence, Podman is common. It needs a compose provider (the standalone `docker-compose` binary or `podman-compose`), and its VM has to be started with `podman machine start`.
 </details>
 
 <details><summary>3. The OS changes the commands</summary>
@@ -30,7 +30,7 @@ The validation table covers bad values, but not **structurally broken rows**: mo
 
 <details><summary>5. Deactivated providers and the "incoming NULL → no change" rule</summary>
 
-In the NPPES files, deactivated NPIs may carry little more than the NPI and the deactivation date, with **Last Update Date empty**. *Verify this against a real file.* If so, the upsert rule "incoming NULL → no change" means a provider who is deactivated *after* being loaded never gets their deactivation date. The rules are consistent with each other but produce a wrong real-world result. A good plan flags this without silently changing the agreed rule. It's a natural thing to revisit in week 2.
+Many deactivated NPIs carry nothing but the NPI and the deactivation date: **Last Update Date, Entity Type Code and the names are all empty**. In the first 200,000 rows of the November 2026 monthly file, 22,203 rows had a deactivation date, and 19,130 of those were these bare stubs. That's about 10% of a `--limit 1000` run. Under these rules, the upsert rule "incoming NULL → no change" means a provider who is deactivated *after* being loaded never gets their deactivation date. The rules are consistent with each other but produce a wrong real-world result. A good plan flags this without silently changing the agreed rule. It's a natural thing to revisit in week 2.
 </details>
 
 <details><summary>6. Same date, different data</summary>
@@ -57,7 +57,7 @@ A row with a bad NPI *and* a bad date is counted once. The table order implies `
 
 <details><summary>10. Byte-order marks and newlines</summary>
 
-If the file starts with a UTF-8 BOM, the first header becomes `﻿NPI` and the NPI column "doesn't exist". Opening with `encoding="utf-8-sig"` handles that. The `csv` docs also require `newline=""` so quoted fields containing line breaks parse correctly.
+If the file starts with a UTF-8 BOM, the first header becomes `﻿NPI` and the NPI column "doesn't exist". Opening with `encoding="utf-8-sig"` handles that. The November 2026 file has no BOM, so this is defence against a future or re-saved file. (Opening a CSV in Excel and saving it is a classic way to add one.) The `csv` docs also require `newline=""` so quoted fields containing line breaks parse correctly.
 </details>
 
 <details><summary>11. Whitespace</summary>
