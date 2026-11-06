@@ -16,7 +16,7 @@ The details are in [ai-workflow.md](ai-workflow.md).
 ## Prerequisites
 | Tool | Version | Notes |
 |---|---|---|
-| Python | The version the week's brief names (3.12 for week 1) | Check with `py -0p` on Windows, or `python3 --version` on macOS/Linux. |
+| Python | The version the week's brief names (3.14 for week 1) | Check with `py -0p` on Windows, or `python3 --version` on macOS/Linux. |
 | Git | Any recent version | |
 | Container runtime | Docker Desktop, **or** Podman with a compose provider | With Podman, also install the standalone `docker-compose` binary, then use `podman machine start` and `podman compose up -d`. Check your employer's Docker Desktop licensing if you're on a work machine. |
 | GitHub account | | A personal account is simplest for installing CodeRabbit. |
@@ -30,8 +30,8 @@ The details are in [ai-workflow.md](ai-workflow.md).
 4. Create a virtual environment. This is the one command that differs by OS:
    | OS | Create | Activate |
    |---|---|---|
-   | Windows (PowerShell) | `py -3.12 -m venv .venv` | `.venv\Scripts\Activate.ps1` |
-   | macOS / Linux | `python3.12 -m venv .venv` | `source .venv/bin/activate` |
+   | Windows (PowerShell) | `py -3.14 -m venv .venv` | `.venv\Scripts\Activate.ps1` |
+   | macOS / Linux | `python3.14 -m venv .venv` | `source .venv/bin/activate` |
 
    *Why a venv?* It plays the same role as a per-project `packages` folder in .NET or `node_modules` in JavaScript. Each project gets its own isolated set of dependencies.
 5. Install CodeRabbit on your repo.

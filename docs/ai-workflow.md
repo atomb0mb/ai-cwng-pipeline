@@ -19,7 +19,7 @@ Ask the AI to restate every rule in its own words, **including the rows where no
 ## 3. Verify inputs
 The AI checks reality instead of assuming it: the real file's headers and encoding, the installed tool versions, whether the database or container runtime exists.
 
-**Why:** an AI will happily write code against the column names it *remembers*. The spec says "Python 3.12", but is it installed? The spec says `docker compose`, but is Docker there? These checks take seconds and save hours.
+**Why:** an AI will happily write code against the column names it *remembers*. The spec says "Python 3.14", but is it installed? The spec says `docker compose`, but is Docker there? These checks take seconds and save hours.
 
 ## 4. Assumptions and open questions
 The AI lists every assumption it's making and every question the spec doesn't answer.

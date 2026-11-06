@@ -11,7 +11,7 @@
 
 # Context
 - I'm a **<your role and main languages, e.g. "backend engineer, mostly Java and SQL">** learning Python data pipelines. This is week 1 of an 8-week learning project: a Python pipeline that loads public US healthcare provider data (CMS NPPES) into Postgres. Later weeks add Airflow, Pydantic validation, LLM extraction, and evals, so keep the structure simple and easy to extend. I'm learning, so explain your reasoning in plain English as you go.
-- This repo was created from a course template. Treat `docs/` and `weeks/` as read-only. Python 3.12, Postgres 16 in Docker Compose (or Podman with a compose provider), psycopg 3, pytest.
+- This repo was created from a course template. Treat `docs/` and `weeks/` as read-only. Python 3.14, Postgres 16 in Docker Compose (or Podman with a compose provider), psycopg 3, pytest.
 - Input: the NPPES monthly provider CSV (`npidata_pfile_<start>-<end>.csv`, ~11 GB) I downloaded myself, located in `data/raw/`. It has ~330 columns, all quoted strings, and a header row.
 - No other dependencies without asking me first.
 

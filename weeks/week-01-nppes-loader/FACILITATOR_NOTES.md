@@ -13,7 +13,7 @@ The brief tells the AI to check the real headers before writing code. A good AI 
 
 <details><summary>2. The required tools may not be installed</summary>
 
-The brief says Python 3.12 and `docker compose`. A good AI checks the installed Python versions (`py -0p` on Windows) and whether Docker exists. On machines without a Docker Desktop licence, Podman is common. It needs a compose provider (the standalone `docker-compose` binary or `podman-compose`), and its VM has to be started with `podman machine start`.
+The brief says Python 3.14 and `docker compose`. A good AI checks the installed Python versions (`py -0p` on Windows) and whether Docker exists. On machines without a Docker Desktop licence, Podman is common. It needs a compose provider (the standalone `docker-compose` binary or `podman-compose`), and its VM has to be started with `podman machine start`.
 </details>
 
 <details><summary>3. The OS changes the commands</summary>
